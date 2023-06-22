@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:app/src/common/models/photo.dart';
 import 'package:flutter/material.dart';
 import 'package:path/path.dart';

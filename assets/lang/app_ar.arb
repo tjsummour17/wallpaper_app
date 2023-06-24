@@ -1,6 +1,17 @@
 {
   "appName": "خلفيات الشاشة",
+  "trendingTitle": "الأفضل خلال الشهر",
+  "categories": "التصنبفات",
+  "nature": "الطبيعة",
+  "cars": "السيارات",
+  "animal": "الحيوانات",
+  "lifeStyle": "نمط الحياة",
+  "language": "اللغة",
+  "theme": "المظهر",
+  "favorites": "المفضلة",
+  "save": "حفظ",
   "home": "الرئيسية",
   "search": "البحث",
-  "more": "المزيد"
+  "more": "المزيد",
+  "findMoreWallpapers":"ابحث عن المزيد من الصور"
 }

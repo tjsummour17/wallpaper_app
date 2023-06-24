@@ -14,7 +14,13 @@ class LocaleProvider extends ChangeNotifier {
 
   Locale get locale => _locale;
 
-  String localeNameByLangCode(String languageCode) => Lang.getLangName(languageCode);
+  Future<void> init() async {
+    _locale = Locale(await SqfliteDatabase.getLanguageKey());
+    notifyListeners();
+  }
+
+  String localeNameByLangCode(String languageCode) =>
+      Lang.getLangName(languageCode);
 
   void setLocale(Locale locale) {
     if (!Lang.all.contains(locale)) return;

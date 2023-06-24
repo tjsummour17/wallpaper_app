@@ -6,6 +6,11 @@ class ThemeProvider extends ChangeNotifier {
 
   ThemeMode get themeMode => _themeMode;
 
+  Future<void> init() async {
+    _themeMode = await SqfliteDatabase.getTheme();
+    notifyListeners();
+  }
+
   set themeMode(ThemeMode value) {
     _themeMode = value;
     SqfliteDatabase.saveTheme(value);

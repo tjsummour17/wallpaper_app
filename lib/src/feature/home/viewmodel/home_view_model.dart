@@ -6,14 +6,14 @@ class HomeViewModel with ChangeNotifier {
   final ApiClient _client = ApiClient();
   List<Photo> _trending = [];
 
-  Photo _anime = Photo(id: -1);
+  Photo _lifeStyle = Photo(id: -1);
   Photo _nature = Photo(id: -1);
   Photo _cars = Photo(id: -1);
   Photo _animals = Photo(id: -1);
 
   List<Photo> get trending => _trending;
 
-  Photo get anime => _anime;
+  Photo get lifeStyle => _lifeStyle;
 
   Photo get nature => _nature;
 
@@ -25,12 +25,12 @@ class HomeViewModel with ChangeNotifier {
     final trendingRes = await _client.trending(page: 1, pageSize: 5);
     _trending = trendingRes.photos;
     final animeRes = await _client.searchImages(
-      searchQuery: 'Anime',
+      searchQuery: 'Life Style',
       page: 1,
       pageSize: 1,
     );
     if (animeRes.photos.isNotEmpty) {
-      _anime = animeRes.photos.first;
+      _lifeStyle = animeRes.photos.first;
     }
     final natureRes = await _client.searchImages(
       searchQuery: 'Nature',

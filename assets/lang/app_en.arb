@@ -1,5 +1,16 @@
 {
   "appName": "Wallpaper Downloader",
+  "trendingTitle": "Best of the month",
+  "categories": "Categories",
+  "nature": "Nature",
+  "cars": "Cars",
+  "animal": "Animals",
+  "lifeStyle": "Life Style",
+  "findMoreWallpapers": "Find more wallpapers",
+  "language": "Language",
+  "theme": "Theme",
+  "favorites": "Favorites",
+  "save": "Save",
   "home": "Home",
   "search": "Search",
   "more": "More"

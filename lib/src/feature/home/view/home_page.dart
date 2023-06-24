@@ -1,4 +1,5 @@
 import 'package:app/src/common/utils/build_context_x.dart';
+import 'package:app/src/feature/categories/view/category_page.dart';
 import 'package:app/src/feature/home/viewmodel/home_view_model.dart';
 import 'package:app/src/feature/home/widgets/container_widget.dart';
 import 'package:app/src/feature/home/widgets/image_container.dart';
@@ -36,47 +37,42 @@ class _HomePageState extends State<_HomePage> {
   Widget build(BuildContext context) {
     final HomeViewModel viewModel = context.watch();
     return Scaffold(
-      appBar: AppBar(scrolledUnderElevation: 0),
-      body: Column(
-        children: [
-          GestureDetector(
-            onTap: () => context.pushNamed(SearchPage.routeName),
-            child: Container(
-              margin: const EdgeInsets.symmetric(horizontal: 15),
-              height: 50,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                color: context.colorScheme.surface,
-                borderRadius: BorderRadius.circular(15),
-              ),
-              child: const Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(left: 10),
-                    child: Text(
-                      'Find wallpaper...',
-                      style: TextStyle(fontSize: 16, color: Colors.grey),
-                    ),
+      appBar: AppBar(
+        title: GestureDetector(
+          onTap: () => context.pushNamed(SearchPage.routeName),
+          child: Container(
+            height: 50,
+            width: double.infinity,
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            decoration: BoxDecoration(
+              color: context.colorScheme.surface,
+              borderRadius: BorderRadius.circular(15),
+            ),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    context.localizations.findMoreWallpapers,
+                    style: context.textTheme.titleSmall,
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(right: 10),
-                    child: Icon(CupertinoIcons.search),
-                  )
-                ],
-              ),
+                ),
+                const Icon(CupertinoIcons.search)
+              ],
             ),
           ),
-          const Row(
+        ),
+        scrolledUnderElevation: 0,
+      ),
+      body: Column(
+        children: [
+          Row(
             children: [
               Padding(
-                padding: EdgeInsets.only(left: 15, top: 20, bottom: 20),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
                 child: Text(
-                  'Best of the month',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  context.localizations.trendingTitle,
+                  style: context.textTheme.titleMedium,
                 ),
               ),
             ],
@@ -86,29 +82,25 @@ class _HomePageState extends State<_HomePage> {
               itemCount: viewModel.trending.length,
               itemBuilder: (context, index, realIndex) {
                 return ContainerWidget(
-                  imageUrl: viewModel.trending[index].src.original,
+                  photo: viewModel.trending[index],
                 );
               },
               options: CarouselOptions(
                 autoPlay: true,
-                height: 210,
-                autoPlayAnimationDuration: const Duration(
-                  milliseconds: 1000,
-                ),
+                aspectRatio: 16 / 9,
+                autoPlayAnimationDuration: const Duration(seconds: 1),
               ),
             )
           else
             const SizedBox(),
-          const Row(
+          Row(
             children: [
               Padding(
-                padding: EdgeInsets.only(left: 15, top: 20, bottom: 20),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
                 child: Text(
-                  'Categories',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  context.localizations.categories,
+                  style: context.textTheme.titleMedium,
                 ),
               ),
             ],
@@ -120,28 +112,24 @@ class _HomePageState extends State<_HomePage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   ImageContainer(
-                    onTap: () {
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //     builder: (context) => NaturePage(),
-                      //   ),
-                      // );
-                    },
-                    title: 'Nature',
+                    onTap: () => context.push(
+                      CategoryPage(
+                        category: 'nature',
+                        title: context.localizations.nature,
+                      ),
+                    ),
+                    title: context.localizations.nature,
                     imageUrl: viewModel.nature.src.original,
                   ),
                   if (viewModel.cars.id != -1)
                     ImageContainer(
-                      onTap: () {
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //     builder: (context) => SportCarsPage(),
-                        //   ),
-                        // );
-                      },
-                      title: 'Cars',
+                      onTap: () => context.push(
+                        CategoryPage(
+                          category: 'Cars',
+                          title: context.localizations.cars,
+                        ),
+                      ),
+                      title: context.localizations.cars,
                       imageUrl: viewModel.cars.src.original,
                     ),
                 ],
@@ -153,31 +141,26 @@ class _HomePageState extends State<_HomePage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  //item one.
                   ImageContainer(
-                    onTap: () {
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //     builder: (context) => AnimalsPage(),
-                      //   ),
-                      // );
-                    },
-                    title: 'Animals',
+                    onTap: () => context.push(
+                      CategoryPage(
+                        category: 'Animals',
+                        title: context.localizations.animal,
+                      ),
+                    ),
+                    title: context.localizations.animal,
                     imageUrl: viewModel.animals.src.original,
                   ),
-                  if (viewModel.anime.id != -1)
+                  if (viewModel.lifeStyle.id != -1)
                     ImageContainer(
-                      onTap: () {
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //     builder: (context) => AnimePage(),
-                        //   ),
-                        // );
-                      },
-                      title: 'Anime',
-                      imageUrl: viewModel.anime.src.original,
+                      onTap: () => context.push(
+                        CategoryPage(
+                          category: 'Life Style',
+                          title: context.localizations.lifeStyle,
+                        ),
+                      ),
+                      title: context.localizations.lifeStyle,
+                      imageUrl: viewModel.lifeStyle.src.original,
                     ),
                 ],
               ),

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -28,20 +29,19 @@ class ImageContainer extends StatelessWidget {
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(10),
-                child: Image.network(
-                  imageUrl,
+                child: CachedNetworkImage(
+                  imageUrl: imageUrl,
                   height: 120,
                   width: 200,
                   fit: BoxFit.cover,
-                  loadingBuilder: (
+                  progressIndicatorBuilder: (
                     BuildContext context,
-                    Widget child,
-                    ImageChunkEvent? loadingProgress,
+                    String _,
+                    DownloadProgress? loadingProgress,
                   ) {
-                    if (loadingProgress == null) return child;
+                    if (loadingProgress == null) return const SizedBox();
                     return SizedBox(
-                      height: 120,
-                      width: 200,
+                      height: 200,
                       child: Shimmer.fromColors(
                         baseColor: Colors.grey.shade200,
                         highlightColor: Colors.grey.shade400,
@@ -51,8 +51,7 @@ class ImageContainer extends StatelessWidget {
                       ),
                     );
                   },
-                  //error loading!
-                  errorBuilder: (context, error, stackTrace) {
+                  errorWidget: (context, error, stackTrace) {
                     return Container(
                       height: 120,
                       width: 200,
